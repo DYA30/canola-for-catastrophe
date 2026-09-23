@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Canola for Catastrophes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,0..100;1,9..144,300..500,0..100&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#FBF6EE;
+  --bg-2:#F4EADB;
+  --glass:rgba(255,250,242,.72);
+  --ink:#3B2B1E;
+  --ink-2:#76614D;
+  --ink-3:#A48F78;
+  --line:#EADDC8;
+  --canola:#F2C035;
+  --canola-deep:#C98E12;
+  --petal-tip:#FFF1C4;
+  --petal-edge:rgba(255,255,255,.95);
+  --stem:#8C985C;
+  --leaf:#A8B07C;
+  --leaf-edge:#F1F3E6;
+  --frost:#D6E3E6;
+  --spark:#9DC1CC;
+  --root:#A88D6E;
+  --btn-ink:#3B2B1E;
+  --sky-top:#F8EEDF;
+  --sky-low:#FAD9A4;
+  --sun:#FFE6A3;
+  --field-far:#D8C07C;
+  --field-mid:#E9C34E;
+  --field-near:#EDB42A;
+  --field-green:#9AA064;
+  --display:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#1B140E; --bg-2:#251C14; --glass:rgba(34,26,19,.72);
+    --ink:#F5EBDD; --ink-2:#CFBBA2; --ink-3:#978269; --line:#3A2D21;
+    --canola:#F4C542; --canola-deep:#E0A626; --petal-tip:#FFF0C4; --petal-edge:rgba(255,246,230,.8);
+    --stem:#9CA56E; --leaf:#7F885A; --leaf-edge:#CBD3B9; --frost:#6E8890; --spark:#E4F2F6; --root:#8E775D; --btn-ink:#2A1E13;
+    --sky-top:#231A22; --sky-low:#6B3F30; --sun:#F2A65C; --field-far:#5E4F2A; --field-mid:#8C7127; --field-near:#A88420; --field-green:#4F5230;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#1B140E; --bg-2:#251C14; --glass:rgba(34,26,19,.72);
+  --ink:#F5EBDD; --ink-2:#CFBBA2; --ink-3:#978269; --line:#3A2D21;
+  --canola:#F4C542; --canola-deep:#E0A626; --petal-tip:#FFF0C4; --petal-edge:rgba(255,246,230,.8);
+  --stem:#9CA56E; --leaf:#7F885A; --leaf-edge:#CBD3B9; --frost:#6E8890; --spark:#E4F2F6; --root:#8E775D; --btn-ink:#2A1E13;
+  --sky-top:#231A22; --sky-low:#6B3F30; --sun:#F2A65C; --field-far:#5E4F2A; --field-mid:#8C7127; --field-near:#A88420; --field-green:#4F5230;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--canola-deep);outline-offset:3px;border-radius:4px}
+::selection{background:var(--canola);color:#0F2421}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1200px;margin-inline:auto;padding-inline:24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:34px;height:34px;flex:none}
+.brand-word{display:flex;flex-direction:column;line-height:1}
+.brand-word b{font-family:var(--display);font-weight:400;font-size:20px;font-variation-settings:"opsz" 36,"SOFT" 100;letter-spacing:-.01em}
+.brand-word small{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.links{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.links a{display:block;text-decoration:none;font-size:14px;font-weight:500;color:var(--ink-2);padding:8px 12px;border-radius:999px;transition:color .2s,background .2s}
+.links a:hover{color:var(--ink);background:var(--bg-2)}
+.links a[aria-current="true"]{color:var(--ink);background:var(--bg-2)}
+.menu-btn{display:none;font:500 14px var(--sans);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+
+/* ---------- layout ---------- */
+main{position:relative;padding-inline:24px;overflow-x:clip}
+#plant{position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.sec{position:relative;z-index:1;max-width:1200px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.66fr);gap:56px;padding-block:128px;scroll-margin-top:72px}
+.sec[data-side="left"]{grid-template-columns:minmax(0,.66fr) minmax(0,1fr)}
+.sec[data-side="left"] .slot{order:-1}
+.slot{min-height:1px}
+.content{min-width:0}
+
+.eyebrow{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:10px;margin:0 0 20px}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--canola);box-shadow:0 0 0 3px color-mix(in srgb,var(--canola) 25%,transparent)}
+h2{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 20px;text-wrap:balance;font-variation-settings:"opsz" 144,"SOFT" 100}
+h2 em{font-style:italic;color:var(--canola-deep)}
+.lede{font-size:19px;color:var(--ink-2);max-width:56ch;margin:0 0 40px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;padding:13px 22px;border-radius:999px;transition:transform .25s,background .25s,box-shadow .25s;border:1px solid transparent}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-primary{background:var(--canola);color:var(--btn-ink)}
+.btn-primary:hover{box-shadow:0 8px 24px -8px color-mix(in srgb,var(--canola-deep) 70%,transparent);transform:translateY(-1px)}
+.btn-ghost{border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{background:var(--bg-2)}
+.btn.pending{background:transparent;border:1px dashed var(--frost);color:var(--ink-3);pointer-events:none;font-weight:500}
+
+/* ---------- hero ---------- */
+.hero-bg{position:absolute;left:0;right:0;top:0;height:var(--hero-h,860px);z-index:0;overflow:hidden;pointer-events:none}
+.hero-bg canvas,.hero-bg img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.hero-bg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to bottom,transparent,var(--bg))}
+.hero .content{position:relative}
+.hero{padding-top:clamp(90px,16vh,170px);padding-bottom:180px;min-height:min(900px,92vh);align-items:start}
+.hero h1{font-family:var(--display);font-weight:300;font-size:clamp(3.4rem,9vw,8rem);line-height:.9;letter-spacing:-.035em;margin:0 0 26px;font-variation-settings:"opsz" 144,"SOFT" 100}
+.hero h1 .for{display:block;font-style:italic;font-size:.4em;letter-spacing:-.01em;color:var(--canola-deep);margin:.2em 0 .1em .1em;line-height:1}
+.hero h1 .cat{display:block}
+.hero .sub{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.25rem,2.2vw,1.6rem);color:var(--ink-2);margin:0;font-variation-settings:"opsz" 36,"SOFT" 100}
+.cue{position:absolute;left:0;bottom:56px;display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.cue i{display:block;width:48px;height:1px;background:var(--ink-3);position:relative;overflow:hidden}
+.cue i::after{content:"";position:absolute;inset:0;background:var(--canola-deep);transform:translateX(-100%);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{60%,100%{transform:translateX(100%)}}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+
+/* hero load sequence */
+.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.rise:nth-child(2){animation-delay:.08s}.rise:nth-child(3){animation-delay:.16s}.rise:nth-child(4){animation-delay:.24s}.rise:nth-child(5){animation-delay:.32s}.rise:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{transform:translateY(14px);opacity:.001}to{transform:none;opacity:1}}
+
+/* ---------- photo slots ---------- */
+.ph{position:relative;max-width:100%;border-radius:14px;border:1.5px dashed var(--frost);background:
+  repeating-linear-gradient(135deg,transparent 0 11px,color-mix(in srgb,var(--frost) 14%,transparent) 11px 12px),var(--bg-2);
+  display:grid;place-items:center;text-align:center;overflow:hidden}
+.ph span{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:12px}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---------- problem ---------- */
+.problem .ph{aspect-ratio:16/9;margin-bottom:44px}
+.facts{display:grid;gap:30px;margin:0 0 56px;padding:0;list-style:none}
+.facts li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding-top:22px;border-top:1px solid var(--line)}
+.facts h3{margin:0;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding-top:4px}
+.facts p{margin:0;max-width:58ch}
+.approach{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:28px}
+.approach h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0 0 20px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding-top:34px;font-size:15px;color:var(--ink-2)}
+.steps li::before{content:"0" counter(s);position:absolute;top:0;left:0;font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--canola);border-radius:999px;padding:3px 9px}
+.steps li:not(:last-child)::after{content:"";position:absolute;top:12px;left:44px;right:-8px;height:1px;background:linear-gradient(90deg,var(--frost),transparent)}
+.steps b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px;font-size:16px}
+.approach .out{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+.approach .out b{color:var(--ink);font-weight:600}
+
+/* ---------- documents ---------- */
+.docs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.doc{position:relative;display:flex;flex-direction:column;gap:14px;padding:30px 28px 28px;border-radius:20px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;scroll-margin-top:100px}
+.doc:hover{transform:translateY(-4px);box-shadow:0 22px 40px -24px color-mix(in srgb,var(--ink) 40%,transparent);border-color:var(--frost)}
+.doc .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.doc h3{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:0;letter-spacing:-.01em}
+.doc p{margin:0;color:var(--ink-2);font-size:15.5px}
+.doc ul{margin:4px 0 8px;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px}
+.doc li{display:flex;gap:10px;align-items:baseline}
+.doc li::before{content:"";flex:none;width:6px;height:6px;transform:translateY(-2px) rotate(45deg);background:var(--canola)}
+.doc .btn{margin-top:auto;align-self:flex-start}
+.doc-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--bg-2);border:1px solid var(--line)}
+.doc-icon svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.doc.flash{animation:flash 1.8s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--canola) 0%,transparent)}25%{box-shadow:0 0 0 6px color-mix(in srgb,var(--canola) 55%,transparent);border-color:var(--canola)}100%{box-shadow:0 0 0 0 transparent}}
+
+/* ---------- updates ---------- */
+.track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 40px;padding:0;list-style:none}
+.track li{font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:14px;position:relative}
+.track li::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px;background:var(--line)}
+.track li.done::before{background:var(--stem)}
+.track li.now::before{background:linear-gradient(90deg,var(--canola) 0 40%,var(--line) 40%)}
+.track li.done,.track li.now{color:var(--ink)}
+.track small{display:block;color:var(--ink-3);font-size:11px;margin-top:2px}
+.log{display:grid;gap:12px}
+.entry{border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .3s}
+.entry[open]{border-color:var(--frost)}
+.entry summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 18px;align-items:center;padding:18px 22px}
+.entry summary::-webkit-details-marker{display:none}
+.entry time{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.entry .t{font-weight:600;font-size:16.5px}
+.entry .pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.entry .pill.new{background:var(--canola);color:#0F2421;border-color:transparent}
+.entry .body{padding:0 22px 22px;color:var(--ink-2);font-size:15.5px}
+.entry .body p{margin:0 0 10px;max-width:62ch}
+.entry .body ul{margin:0;padding-left:18px}
+.entry .next{margin-top:12px;font-size:14.5px}
+.entry .next b{color:var(--ink);font-weight:600}
+.plus{width:22px;height:22px;position:relative;flex:none}
+.plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink-2);transform:translate(-50%,-50%);transition:transform .3s}
+.plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.entry[open] .plus::after{transform:translate(-50%,-50%) rotate(0)}
+.more{margin-top:18px;font:500 14px var(--sans);color:var(--ink-2);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--frost)}
+
+/* ---------- team ---------- */
+.team{padding-bottom:240px}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:48px}
+.person .ph{aspect-ratio:4/5;margin-bottom:16px;border-radius:16px}
+.person h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0;line-height:1.15}
+.person .role{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--canola-deep);margin:6px 0 8px}
+:root[data-theme="dark"] .person .role{color:var(--canola)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .person .role{color:var(--canola)}}
+.person p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.with{border-top:1px solid var(--line);padding-top:24px}
+.with h3{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 16px}
+.with ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.with li b{display:block;font-weight:600;font-size:15.5px}
+.with li span{font-size:14px;color:var(--ink-2)}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:1;border-top:1px solid var(--line);background:var(--bg);padding:40px 24px}
+.foot{max-width:1200px;margin-inline:auto;display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center;font-size:14px;color:var(--ink-2)}
+.foot .mono{font-family:var(--mono);font-size:12px}
+
+/* ---------- plant ---------- */
+#plant .stem{fill:none;stroke:var(--stem);stroke-width:4;stroke-linecap:round}
+#plant .stem-frost{fill:none;stroke:var(--frost);stroke-width:1.2;stroke-linecap:round;opacity:.9}
+#plant .branch{fill:none;stroke:var(--stem);stroke-width:2.4;stroke-linecap:round}
+#plant .pod{fill:none;stroke:var(--leaf);stroke-width:1.8;stroke-linecap:round}
+#plant .root{fill:none;stroke:var(--root);stroke-linecap:round;opacity:.85}
+#plant .ground{stroke:var(--frost);stroke-width:1.4;stroke-dasharray:2 6;stroke-linecap:round}
+#plant .petal{fill:url(#petalGrad);stroke:var(--petal-edge);stroke-width:.7}
+#plant .eye{fill:var(--canola-deep)}
+#plant .bud{fill:#C9C35A;stroke:var(--leaf-edge);stroke-width:.5}
+#plant .leaf{fill:var(--leaf);stroke:var(--leaf-edge);stroke-width:1;opacity:.92}
+#plant .rib{fill:none;stroke:var(--leaf-edge);stroke-width:.8;opacity:.8}
+#plant .spark{stroke:var(--spark);stroke-width:1.1;stroke-linecap:round;fill:none}
+#plant .grow{stroke-dasharray:var(--l);stroke-dashoffset:var(--l);transition:stroke-dashoffset 1.2s cubic-bezier(.3,.6,.2,1)}
+#plant .grow.on{stroke-dashoffset:0}
+#plant .bloom,#plant .unfurl,#plant .twinkle{transform:scale(0);transform-box:fill-box;transform-origin:center;transition:transform .9s cubic-bezier(.2,.9,.25,1.25)}
+#plant .unfurl{transform-origin:left center}
+#plant .on>.bloom,#plant .on>.unfurl,#plant .on>.twinkle{transform:scale(1)}
+#plant .twinkle{animation:tw 3.2s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .people{grid-template-columns:minmax(0,1fr)}
+  .person{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:start}
+  .person .ph{margin:0;aspect-ratio:1}
+  .with ul{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:860px){
+  .sec,.sec[data-side="left"]{grid-template-columns:minmax(0,1fr);padding-block:88px;padding-right:44px}
+  .slot{display:none}
+  .hero{min-height:min(640px,86vh);padding-top:80px;padding-bottom:150px}
+  .cue{bottom:40px}
+  .team{padding-bottom:210px}
+  .docs{grid-template-columns:minmax(0,1fr)}
+  .facts li{grid-template-columns:minmax(0,1fr);gap:8px}
+  .steps{grid-template-columns:minmax(0,1fr);gap:20px}
+  .steps li:not(:last-child)::after{display:none}
+  .track{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:18px}
+  .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px}
+  .links.open{display:flex}
+  .menu-btn{display:inline-block}
+  #plant{opacity:.55}
+  .entry summary{grid-template-columns:minmax(0,1fr) auto;padding:16px 18px}
+  .entry time{grid-column:1}
+  .entry .pill{display:none}
+  .entry .t{grid-column:1}
+  .plus{grid-column:2;grid-row:1 / span 2}
+  .entry .body{padding:0 18px 18px}
+}
+@media (max-width:480px){
+  .nav-in,main{padding-inline:16px}
+  .sec,.sec[data-side="left"]{padding-right:34px}
+  .brand-word small{display:none}
+  .person{grid-template-columns:88px minmax(0,1fr)}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .rise,.cue i::after,#plant .twinkle,.doc.flash{animation:none}
+  #plant .grow,#plant .bloom,#plant .unfurl,#plant .twinkle{transition:none}
+}
+</style>
+</head>
+<body>
+
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#home" aria-label="Canola for Catastrophes, home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>
+      <span class="brand-word"><b>Canola for Catastrophes</b></span>
+    </a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="links">Menu</button>
+    <ul class="links" id="links">
+      <li><a href="#problem" data-sec="problem">Problem</a></li>
+      <li><a href="#documents" data-sec="documents" data-focus="repository">Repository</a></li>
+      <li><a href="#documents" data-sec="documents" data-focus="conops">ConOps</a></li>
+      <li><a href="#updates" data-sec="updates">Updates</a></li>
+      <li><a href="#team" data-sec="team">Team</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- logo symbol, reused in nav + footer -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="logoPetal" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" style="stop-color:var(--canola-deep)"/>
+      <stop offset=".65" style="stop-color:var(--canola)"/>
+      <stop offset="1" style="stop-color:var(--petal-tip)"/>
+    </linearGradient>
+    <symbol id="logo" viewBox="0 0 64 64">
+      <g transform="translate(32 32)">
+        <g fill="url(#logoPetal)">
+          <path d="M0-3C-7-9-8-20 0-27C8-20 7-9 0-3Z"/>
+          <path d="M0-3C-7-9-8-20 0-27C8-20 7-9 0-3Z" transform="rotate(90)"/>
+          <path d="M0-3C-7-9-8-20 0-27C8-20 7-9 0-3Z" transform="rotate(180)"/>
+          <path d="M0-3C-7-9-8-20 0-27C8-20 7-9 0-3Z" transform="rotate(270)"/>
+        </g>
+        <g style="stroke:var(--ink)" stroke-width="2" stroke-linecap="round" fill="none">
+          <path d="M0-10V-28M0-21L-4-25M0-21L4-25" transform="rotate(45)"/>
+          <path d="M0-10V-28M0-21L-4-25M0-21L4-25" transform="rotate(135)"/>
+          <path d="M0-10V-28M0-21L-4-25M0-21L4-25" transform="rotate(225)"/>
+          <path d="M0-10V-28M0-21L-4-25M0-21L4-25" transform="rotate(315)"/>
+        </g>
+        <circle r="4.2" style="fill:var(--ink)"/>
+        <circle r="1.6" style="fill:var(--canola)"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<main>
+  <!-- Hero background. To use your own photo, replace the canvas with:
+       <img src="hero.jpg" alt=""> -->
+  <div class="hero-bg" id="hero-bg" aria-hidden="true"><canvas id="field"></canvas></div>
+  <svg id="plant" aria-hidden="true">
+    <defs>
+      <linearGradient id="petalGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color:var(--canola-deep)"/>
+        <stop offset=".55" style="stop-color:var(--canola)"/>
+        <stop offset="1" style="stop-color:var(--petal-tip)"/>
+      </linearGradient>
+    </defs>
+    <g id="plant-layer"></g>
+  </svg>
+
+  <!-- 1 · HERO -->
+  <section class="sec hero" id="home" data-side="right">
+    <div class="content">
+      <h1 class="rise">Canola<span class="for">for</span><span class="cat">Catastrophes</span></h1>
+      <p class="sub rise">Scaling sustainable nutrition</p>
+    </div>
+    <div class="slot"></div>
+    <div class="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+  </section>
+
+  <!-- 2 · PROBLEM -->
+  <section class="sec problem" id="problem" data-side="left">
+    <div class="content">
+      <p class="eyebrow">The problem</p>
+      <h2>A sudden global cooling would leave the world <em>short of protein.</em></h2>
+      <div class="ph" role="img" aria-label="Photo placeholder"><span>Photo · canola meal or field · 16:9</span></div>
+      <ul class="facts">
+        <li><h3>The shock</h3><p>A nuclear winter, a large volcanic eruption or an asteroid impact could block sunlight and cool the planet for years. Conventional crop yields would fall sharply, and affordable, nutritious protein would get scarce.</p></li>
+        <li><h3>The overlooked resource</h3><p>Canola meal is what's left after the oil is pressed out of the seed. It's rich in protein but mostly fed to livestock. With the right processing, that protein can be extracted for people to eat.</p></li>
+        <li><h3>The gap</h3><p>Extraction methods already exist. What nobody knows yet is how quickly they could be scaled up when it matters most, and which one is actually worth scaling.</p></li>
+      </ul>
+      <div class="approach">
+        <h3>What we're doing about it</h3>
+        <ol class="steps">
+          <li><b>Compare</b>Review existing protein-extraction methods side by side.</li>
+          <li><b>Select</b>Score them on yield, cost and scalability, and pick the most viable.</li>
+          <li><b>Model</b>Estimate how fast the chosen process could scale in a catastrophe.</li>
+        </ol>
+        <p class="out"><b>Where it ends up:</b> findings are written up as a peer-reviewed journal article with ALLFED.</p>
+      </div>
+    </div>
+    <div class="slot"></div>
+  </section>
+
+  <!-- 3 · DOCUMENTS -->
+  <section class="sec" id="documents" data-side="right">
+    <div class="content">
+      <p class="eyebrow">Project documents</p>
+      <h2>Everything we've submitted, <em>in one place.</em></h2>
+      <p class="lede">For markers, our project host and anyone following along. Both are kept current before every audit.</p>
+      <div class="docs">
+        <article class="doc" id="repository">
+          <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></svg></div>
+          <span class="tag">Repository</span>
+          <h3>Project repository</h3>
+          <p>Our governance record: plans, registers and logs, updated between audits.</p>
+          <ul>
+            <li>Project timeline</li>
+            <li>Stakeholder analysis &amp; engagement strategy</li>
+            <li>RACI matrix &amp; team roles</li>
+            <li>Decision, action &amp; feedback logs</li>
+          </ul>
+          <a class="btn btn-primary" data-link="repository" href="#">Open repository <span class="arr">→</span></a>
+        </article>
+        <article class="doc" id="conops">
+          <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
+          <span class="tag">ConOps</span>
+          <h3>Concept of Operations</h3>
+          <p>What the project is, who it's for, and how we'll deliver it.</p>
+          <ul>
+            <li>Problem &amp; objectives</li>
+            <li>Stakeholders &amp; their needs</li>
+            <li>Scope: what's in and what's out</li>
+            <li>Crash, primary &amp; stretch goals</li>
+          </ul>
+          <a class="btn btn-primary" data-link="conops" href="#">Read the ConOps <span class="arr">→</span></a>
+        </article>
+      </div>
+    </div>
+    <div class="slot"></div>
+  </section>
+
+  <!-- 4 · UPDATES -->
+  <section class="sec" id="updates" data-side="left">
+    <div class="content">
+      <p class="eyebrow">Project log</p>
+      <h2>Weekly updates</h2>
+      <p class="lede">What we did, what changed and what's next. A new entry every week.</p>
+      <ol class="track" aria-label="Audit progress">
+        <li class="done">PA1<small>Complete</small></li>
+        <li class="now">PA2<small>In progress</small></li>
+        <li>PA3<small>Upcoming</small></li>
+        <li>PA4<small>Upcoming</small></li>
+      </ol>
+      <div class="log" id="log"></div>
+      <button class="more" id="more" hidden>Show older updates</button>
+    </div>
+    <div class="slot"></div>
+  </section>
+
+  <!-- 5 · TEAM -->
+  <section class="sec team" id="team" data-side="right">
+    <div class="content">
+      <p class="eyebrow">Team</p>
+      <h2>The people <em>behind it.</em></h2>
+      <p class="lede">Three final-year engineering students at the Australian National University.</p>
+      <div class="people">
+        <article class="person">
+          <div class="ph" role="img" aria-label="Photo placeholder for Abhirami"><span>Photo</span></div>
+          <div><h3>Abhirami Santoshkumar</h3><p class="role">Project Manager</p><p>Runs the schedule, stakeholder communication and project governance.</p></div>
+        </article>
+        <article class="person">
+          <div class="ph" role="img" aria-label="Photo placeholder for Prathvi"><span>Photo</span></div>
+          <div><h3>Prathvi Singh Bhati</h3><p class="role">Analysis Lead</p><p>Leads the process comparison, selection criteria and scale-up modelling.</p></div>
+        </article>
+        <article class="person">
+          <div class="ph" role="img" aria-label="Photo placeholder for Levi"><span>Photo</span></div>
+          <div><h3>Levi Pau</h3><p class="role">Research Lead</p><p>Leads the literature review, background research and documentation.</p></div>
+        </article>
+      </div>
+      <div class="with">
+        <h3>Working with</h3>
+        <ul>
+          <li><b>Dr David Denkenberger</b><span>Project host · ALLFED</span></li>
+          <li><b>Juan Garcia Martinez</b><span>ALLFED contact</span></li>
+          <li><b>Arlene Mendoza</b><span>Academic supervisor · ANU</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="slot"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <a class="brand" href="#home"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg><span class="brand-word"><b>Canola for Catastrophes</b><small>Scaling sustainable nutrition</small></span></a>
+    <span>ENGN4300 Capstone Project · 2026</span>
+    <span>Updated every week</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   EDIT HERE — links + weekly updates
+   ============================================================ */
+const LINKS = {
+  repository: "",   // paste the repository URL
+  conops: ""        // paste the ConOps URL
+};
+
+// Newest first. Add a new object at the top each week.
+const UPDATES = [
+  {
+    date: "2026-09-21", tag: "Governance",
+    title: "Closing out the PA1 feedback",
+    body: ["We're working through the tutor's PA1 comments before the next audit."],
+    list: [
+      "ALLFED now has its own row in the stakeholder register, separate from the project host",
+      "Course Convenor added as a stakeholder",
+      "Documenting how stakeholders are identified, who owns the list and how often it's reviewed",
+      "Tightening up team structure, schedule and risk register"
+    ],
+    next: "Decision-making framework and an updated feedback log template."
+  },
+  {
+    date: "2026-09-07", tag: "Milestone",
+    title: "PA1 governance pack submitted",
+    body: ["First audit done. The full governance set is now in the repository."],
+    list: [
+      "Concept of Operations (two iterations)",
+      "Project timeline",
+      "Stakeholder analysis, engagement strategy and power/interest matrix",
+      "RACI matrix, team structure and roles, tutor feedback log"
+    ],
+    next: "Act on the audit feedback and start the extraction-method literature review."
+  },
+  {
+    date: "2026-08-10", tag: "Kick-off",
+    title: "Scope agreed with ALLFED",
+    body: ["We met our host and locked in what this project is and isn't. We compare existing canola meal protein-extraction methods, pick the most viable on yield, cost and scalability, then model how fast it could scale in a catastrophe."],
+    list: [
+      "Out of scope: wet-lab trials, building equipment, climate relocation modelling",
+      "Long-term goal: a peer-reviewed journal article with ALLFED"
+    ],
+    next: "Draft the ConOps and set up the project repository."
+  }
+];
+
+/* ============================================================ */
+
+// links
+document.querySelectorAll("[data-link]").forEach(a => {
+  const url = LINKS[a.dataset.link];
+  if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+  else { a.classList.add("pending"); a.setAttribute("aria-disabled","true"); a.innerHTML = "Link coming soon"; }
+});
+
+// updates
+(function(){
+  const log = document.getElementById("log"), more = document.getElementById("more");
+  const fmt = d => new Date(d + "T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"});
+  const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const SHOW = 3;
+  UPDATES.forEach((u,i) => {
+    const d = document.createElement("details");
+    d.className = "entry"; if (i === 0) d.open = true; if (i >= SHOW) d.hidden = true;
+    d.innerHTML = `<summary><time datetime="${u.date}">${fmt(u.date)}</time><span class="t">${esc(u.title)}</span><span style="display:flex;gap:10px;align-items:center"><span class="pill${i===0?" new":""}">${i===0?"Latest":esc(u.tag)}</span><span class="plus" aria-hidden="true"></span></span></summary>
+      <div class="body">${(u.body||[]).map(p=>`<p>${esc(p)}</p>`).join("")}${u.list?`<ul>${u.list.map(l=>`<li>${esc(l)}</li>`).join("")}</ul>`:""}${u.next?`<p class="next"><b>Next:</b> ${esc(u.next)}</p>`:""}</div>`;
+    log.appendChild(d);
+  });
+  if (UPDATES.length > SHOW) {
+    more.hidden = false;
+    more.onclick = () => { log.querySelectorAll(".entry[hidden]").forEach(e => e.hidden = false); more.hidden = true; };
+  }
+  
+})();
+
+// nav: menu, focus-to-card, active section
+(function(){
+  const btn = document.getElementById("menu-btn"), links = document.getElementById("links");
+  btn.onclick = () => { const o = links.classList.toggle("open"); btn.setAttribute("aria-expanded", o); };
+  links.addEventListener("click", e => {
+    const a = e.target.closest("a"); if (!a) return;
+    links.classList.remove("open"); btn.setAttribute("aria-expanded","false");
+    const f = a.dataset.focus; if (!f) return;
+    e.preventDefault();
+    document.getElementById("documents").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+    const card = document.getElementById(f);
+    setTimeout(() => { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }, 550);
+    history.replaceState(null, "", "#documents");
+  });
+})();
+
+/* ============================================================
+   THE PLANT — grows down the page, flowers spin as you scroll
+   ============================================================ */
+(function(){
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.getElementById("plant"), layer = document.getElementById("plant-layer");
+  const main = document.querySelector("main");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const navLinks = [...document.querySelectorAll(".links a[data-sec]")];
+  let stem, stemFrost, stemLen = 0, samples = [], reveal = [], spinners = [], leaves = [], secs = [];
+  let ss = scrollY, drawn = 0, mainTop = 0, heroBottom = 0;
+
+  const el = (t, a, p) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); (p||layer).appendChild(n); return n; };
+  let seed; const R = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const rr = (a,b) => a + R()*(b-a);
+
+  const petalD = r => `M0 0C${r*.28} ${-r*.36} ${r*.74} ${-r*.52} ${r} ${-r*.16}C${r*1.06} ${r*.18} ${r*.72} ${r*.44} ${r*.3} ${r*.3}C${r*.14} ${r*.2} ${r*.05} ${r*.1} 0 0Z`;
+
+  function atY(y){ // sample on stem at height y
+    let lo = 0, hi = samples.length - 1;
+    while (lo < hi) { const m = (lo+hi) >> 1; if (samples[m].y < y) lo = m+1; else hi = m; }
+    return samples[lo];
+  }
+  function grow(node, at, delay){
+    const L = node.getTotalLength(); node.style.setProperty("--l", L.toFixed(1));
+    node.classList.add("grow"); if (delay) node.style.transitionDelay = delay + "s";
+    reveal.push({n: node, at});
+  }
+  function flower(parent, x, y, r, at){
+    const g = el("g", {transform:`translate(${x.toFixed(1)} ${y.toFixed(1)})`}, parent);
+    const b = el("g", {class:"bloom"}, g);
+    b.style.transitionDelay = rr(0,.35).toFixed(2)+"s";
+    const s = el("g", {}, b);
+    const base = rr(0,90);
+    for (let k=0;k<4;k++) el("path", {class:"petal", d:petalD(r*rr(.92,1.08)), transform:`rotate(${k*90 + rr(-6,6)})`}, s);
+    el("circle", {class:"eye", r:(r*.22).toFixed(1)}, s);
+    for (let k=0;k<4;k++){ const a=(k*90+45)*Math.PI/180; el("circle",{class:"eye", r:(r*.07).toFixed(2), cx:(Math.cos(a)*r*.36).toFixed(1), cy:(Math.sin(a)*r*.36).toFixed(1)}, s); }
+    spinners.push({s, base, sp: rr(.08,.2) * (R()<.5?-1:1)});
+    reveal.push({n: g, at});
+  }
+  function bud(parent, x, y, at, ang){
+    const g = el("g", {transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(0)})`}, parent);
+    const b = el("g", {class:"bloom"}, g);
+    el("ellipse", {class:"bud", rx:2.3, ry:3.8}, b);
+    reveal.push({n: g, at});
+  }
+  function spark(parent, x, y, r, at){
+    const g = el("g", {transform:`translate(${x.toFixed(1)} ${y.toFixed(1)})`}, parent);
+    const t = el("g", {class:"twinkle"}, g);
+    t.style.setProperty("--d", rr(0,3).toFixed(2)+"s");
+    el("path", {class:"spark", d:`M${-r} 0H${r}M${-r/2} ${-r*.866}L${r/2} ${r*.866}M${-r/2} ${r*.866}L${r/2} ${-r*.866}`}, t);
+    reveal.push({n: g, at});
+  }
+  function leaf(parent, x, y, w, h, ang, at){
+    const g = el("g", {}, parent);
+    const u = el("g", {class:"unfurl"}, g);
+    el("path", {class:"leaf", d:`M0 0C${w*.2} ${-h*.9} ${w*.62} ${-h*.95} ${w} ${-h*.1}C${w*.7} ${h*.5} ${w*.3} ${h*.55} 0 0Z`}, u);
+    el("path", {class:"rib", d:`M0 0Q${w*.5} ${-h*.25} ${w*.92} ${-h*.12}`}, u);
+    leaves.push({g, x, y, ang, ph: rr(0,6.28)});
+    reveal.push({n: g, at});
+  }
+  function cluster(parent, F, dir, at, big){
+    const n = big ? 5 : (R()<.5 ? 3 : 4);
+    const spots = [[0,0],[-15,12],[16,9],[-5,27],[12,-16],[-17,-8]];
+    for (let i=0;i<n;i++){ const [dx,dy] = spots[i]; flower(parent, F.x + dx*dir + rr(-2,2), F.y + dy + rr(-2,2), rr(big?14:11, big?18:15), at + i*3); }
+    bud(parent, F.x + rr(-3,3), F.y - 30, at, rr(-20,20));
+    bud(parent, F.x + 5*dir, F.y - 36, at, rr(-20,20));
+    if (R() < .7) spark(parent, F.x + rr(-34,34), F.y + rr(-34,10), rr(3,5), at);
+  }
+  function root(x, y, a, len, w, depth, delay, at){
+    const rad = a*Math.PI/180, ex = x + Math.cos(rad)*len, ey = y + Math.sin(rad)*len;
+    const bend = rr(-.3,.3)*len, mx = (x+ex)/2 + Math.cos(rad+1.5708)*bend, my = (y+ey)/2 + Math.sin(rad+1.5708)*bend;
+    const p = el("path", {class:"root", d:`M${x.toFixed(1)} ${y.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`, "stroke-width": w.toFixed(2)});
+    grow(p, at, delay);
+    if (depth > 0){
+      root(ex, ey, a + rr(-30,-10), len*rr(.5,.68), w*.62, depth-1, delay+.3, at);
+      root(ex, ey, a + rr(10,30), len*rr(.5,.68), w*.62, depth-1, delay+.3, at);
+      if (depth > 1) root((x+ex)/2, (y+ey)/2, a + (R()<.5?-1:1)*rr(35,55), len*rr(.35,.5), w*.55, depth-2, delay+.2, at);
+    }
+  }
+
+  function paintField(){
+    const c = document.getElementById("field"); if (!c) return;
+    const cs = getComputedStyle(document.documentElement), v = k => cs.getPropertyValue(k).trim();
+    const W = c.clientWidth, H = c.clientHeight, dpr = Math.min(devicePixelRatio || 1, 2);
+    if (!W || !H) return;
+    c.width = W*dpr; c.height = H*dpr;
+    const x = c.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0);
+    let sd = 7; const r = () => { sd = (sd*16807) % 2147483647; return sd/2147483647; };
+    const hz = H*.6;
+    const sky = x.createLinearGradient(0,0,0,hz); sky.addColorStop(0,v("--sky-top")); sky.addColorStop(1,v("--sky-low"));
+    x.fillStyle = sky; x.fillRect(0,0,W,H);
+    const sx = W*.7, sy = hz*.92, sg = x.createRadialGradient(sx,sy,0,sx,sy,H*.5);
+    sg.addColorStop(0,v("--sun")); sg.addColorStop(.3,v("--sun")+"88"); sg.addColorStop(1,v("--sun")+"00");
+    x.fillStyle = sg; x.fillRect(0,0,W,H);
+    const layers = [
+      {y:hz, amp:10, f:.004, col:v("--field-far"), dots:420, s:[.6,1.2]},
+      {y:hz+H*.08, amp:16, f:.0032, col:v("--field-mid"), dots:520, s:[1,2.2]},
+      {y:hz+H*.19, amp:22, f:.0026, col:v("--field-near"), dots:460, s:[1.8,3.6]}
+    ];
+    layers.forEach((L,i) => {
+      const ph = r()*6.28, edge = X => L.y + Math.sin(X*L.f+ph)*L.amp + Math.sin(X*L.f*2.7+ph)*L.amp*.35;
+      x.beginPath(); x.moveTo(0,H);
+      for (let X=0; X<=W+10; X+=10) x.lineTo(X, edge(X));
+      x.lineTo(W,H); x.closePath();
+      const g = x.createLinearGradient(0,L.y-L.amp,0,H); g.addColorStop(0,L.col); g.addColorStop(1,v("--field-green"));
+      x.globalAlpha = .9; x.fillStyle = g; x.fill(); x.globalAlpha = 1;
+      const n = Math.round(L.dots * W/1400);
+      for (let k=0;k<n;k++){
+        const X = r()*W, top = edge(X), Y = top + Math.pow(r(),1.4)*(H-top);
+        const sz = L.s[0] + (L.s[1]-L.s[0])*((Y-top)/(H-top+1)) + r()*.6;
+        x.fillStyle = r()<.2 ? v("--petal-tip") : v("--canola");
+        x.globalAlpha = .55 + r()*.4;
+        x.beginPath(); x.arc(X,Y,sz,0,6.28); x.fill();
+      }
+      x.globalAlpha = 1;
+    });
+  }
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => paintField());
+  new MutationObserver(() => paintField()).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+
+  function build(){
+    seed = 20260923;
+    layer.textContent = ""; reveal = []; spinners = []; leaves = [];
+    const mr = main.getBoundingClientRect();
+    mainTop = mr.top + scrollY;
+    const W = main.clientWidth, H = main.scrollHeight;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const narrow = innerWidth <= 860;
+    secs = [...document.querySelectorAll(".sec")];
+    heroBottom = secs[0].getBoundingClientRect().bottom - mr.top;
+    document.getElementById("hero-bg").style.setProperty("--hero-h", heroBottom + "px");
+    paintField();
+
+    // stem anchor points
+    const P = [], meta = [];
+    secs.forEach((s, i) => {
+      const r = s.getBoundingClientRect(), top = r.top - mr.top, h = r.height;
+      let x;
+      if (narrow) x = W - (innerWidth <= 480 ? 16 : 22);
+      else { const sr = s.querySelector(".slot").getBoundingClientRect(); x = sr.left - mr.left + sr.width * .5; }
+      const j = narrow ? 3 : 34;
+      const last = i === secs.length - 1;
+      P.push([x + rr(-j,j)*.4, i === 0 ? top + (narrow ? 40 : 110) : top + h*.2]);
+      P.push([x + rr(-j,j), top + h*.5]);
+      P.push([x + rr(-j,j)*.5, last ? top + h*.7 : top + h*.82]);
+      meta.push({top, h, x, slotW: narrow ? 60 : s.querySelector(".slot").getBoundingClientRect().width});
+    });
+
+    let d = `M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
+    for (let i=1;i<P.length;i++){
+      const [x0,y0] = P[i-1], [x1,y1] = P[i], dy = y1 - y0;
+      d += `C${x0.toFixed(1)} ${(y0+dy*.55).toFixed(1)} ${x1.toFixed(1)} ${(y1-dy*.55).toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+    }
+    const gStem = el("g", {});
+    stemFrost = el("path", {class:"stem-frost", d, transform:"translate(-2.2 0)"}, gStem);
+    stem = el("path", {class:"stem", d}, gStem);
+    stemLen = stem.getTotalLength();
+    [stem, stemFrost].forEach(p => { p.style.strokeDasharray = stemLen; });
+    samples = [];
+    for (let l=0; l<=stemLen; l+=6){ const pt = stem.getPointAtLength(l); samples.push({x:pt.x, y:pt.y, l}); }
+    const endPt = stem.getPointAtLength(stemLen); samples.push({x:endPt.x, y:endPt.y, l:stemLen});
+
+    const gLeaves = el("g", {}), gBranch = el("g", {}), gFlowers = el("g", {});
+    const S = narrow ? .62 : 1;
+
+    // crown: terminal raceme at the very top of the stem
+    const tip = samples[0];
+    const crown = el("path", {class:"branch", d:`M${tip.x} ${tip.y}Q${tip.x+4} ${tip.y-20} ${tip.x+1} ${tip.y-38}`}, gBranch);
+    grow(crown, 0);
+    cluster(gFlowers, {x: tip.x, y: tip.y - 6}, 1, 0, true);
+    bud(gFlowers, tip.x + 1, tip.y - 52, 0, 0);
+    bud(gFlowers, tip.x - 4, tip.y - 36, 0, -25);
+    bud(gFlowers, tip.x + 6, tip.y - 34, 0, 25);
+
+    // side branches + leaves per section
+    meta.forEach((m, i) => {
+      const last = i === meta.length - 1;
+      const fr = i === 0 ? [.36,.56,.76] : last ? [.26,.44] : [.3,.5,.72];
+      let dir = i % 2 ? -1 : 1;
+      fr.forEach(f => {
+        const s0 = atY(m.top + m.h*f);
+        const dd = narrow ? -1 : dir;
+        const maxL = narrow ? 34 : Math.min(150, m.slotW * .44);
+        const len = rr(maxL*.55, maxL), rise = rr(46,100)*S;
+        const F = {x: s0.x + dd*len, y: s0.y - rise};
+        const cx = s0.x + dd*len*.18, cy = s0.y - rise*.85;
+        const br = el("path", {class:"branch", d:`M${s0.x.toFixed(1)} ${s0.y.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${F.x.toFixed(1)} ${F.y.toFixed(1)}`}, gBranch);
+        grow(br, s0.l);
+        // seed pods (siliques) lower on the branch
+        [.42,.62].forEach(t => {
+          const px = (1-t)*(1-t)*s0.x + 2*(1-t)*t*cx + t*t*F.x, py = (1-t)*(1-t)*s0.y + 2*(1-t)*t*cy + t*t*F.y;
+          const pl = rr(14,24)*S, pa = (dd>0 ? -50 : -130) + rr(-15,15), a = pa*Math.PI/180;
+          const pod = el("path", {class:"pod", d:`M${px.toFixed(1)} ${py.toFixed(1)}l${(Math.cos(a)*pl).toFixed(1)} ${(Math.sin(a)*pl).toFixed(1)}`}, gBranch);
+          grow(pod, s0.l + 20, .5);
+        });
+        const scaleG = el("g", {transform: `translate(${F.x.toFixed(1)} ${F.y.toFixed(1)}) scale(${S}) translate(${(-F.x).toFixed(1)} ${(-F.y).toFixed(1)})`}, gFlowers);
+        cluster(scaleG, F, dd, s0.l + 30, false);
+        dir = -dir;
+      });
+      // leaves hugging the stem
+      [.4, .64].forEach((f, k) => {
+        const s0 = atY(m.top + m.h*f);
+        const side = narrow ? -1 : (k ? 1 : -1) * (i % 2 ? -1 : 1);
+        const w = rr(38,62)*S, h = rr(15,22)*S;
+        leaf(gLeaves, s0.x, s0.y, w, h, side > 0 ? rr(-40,-20) : rr(200,220), s0.l);
+      });
+    });
+
+    // base, ground line and roots in the last section
+    const base = samples[samples.length-1];
+    const gRoots = el("g", {});
+    const gl = el("path", {class:"ground", d:`M${(base.x-150*S).toFixed(1)} ${(base.y+2).toFixed(1)}H${(base.x+150*S).toFixed(1)}`}, gRoots);
+    grow(gl, stemLen - 1);
+    root(base.x, base.y, 90, 150*S, 3, 3, .1, stemLen - 1);           // taproot
+    (narrow ? [110,140,165] : [30,55,125,150]).forEach(a => root(base.x, base.y+2, a + rr(-6,6), rr(70,100)*S, 2, 3, .25, stemLen - 1));
+    for (let k=0;k<5;k++) spark(gRoots, base.x + rr(-140,140)*S, base.y + rr(-6,4), rr(2.5,4), stemLen - 1);
+
+    if (reduce){ reveal.forEach(r => r.n.classList.add("on")); stem.style.strokeDashoffset = stemFrost.style.strokeDashoffset = 0; }
+    drawn = -1; tick(true);
+  }
+
+  function target(){
+    const y = Math.max(ss + innerHeight*.85 - mainTop, heroBottom);
+    return atY(y).l;
+  }
+  let raf = 0;
+  function tick(force){
+    raf = 0;
+    const prev = ss;
+    ss += (scrollY - ss) * (reduce ? 1 : .12);
+    if (Math.abs(scrollY - ss) < .3) ss = scrollY;
+    if (!reduce){
+      const t = target();
+      drawn = drawn < 0 ? t : drawn + (t - drawn) * .14;
+      const off = Math.max(0, stemLen - drawn);
+      stem.style.strokeDashoffset = off; stemFrost.style.strokeDashoffset = off;
+      for (const r of reveal){ const on = r.at <= drawn; if (on !== r.n._on){ r.n._on = on; r.n.classList.toggle("on", on); } }
+      for (const f of spinners) f.s.setAttribute("transform", `rotate(${(f.base + ss*f.sp).toFixed(2)})`);
+      for (const l of leaves) l.g.setAttribute("transform", `translate(${l.x.toFixed(1)} ${l.y.toFixed(1)}) rotate(${(l.ang + Math.sin(ss*.004 + l.ph)*6).toFixed(2)})`);
+    } else {
+      for (const l of leaves) l.g.setAttribute("transform", `translate(${l.x.toFixed(1)} ${l.y.toFixed(1)}) rotate(${l.ang.toFixed(1)})`);
+    }
+    // active nav link
+    const mid = scrollY + innerHeight*.35;
+    let cur = null;
+    for (const s of secs){ const r = s.getBoundingClientRect(); if (r.top + scrollY <= mid) cur = s.id; }
+    navLinks.forEach(a => a.setAttribute("aria-current", a.dataset.sec === cur ? "true" : "false"));
+    if (!reduce && (force || Math.abs(scrollY - ss) > .3 || Math.abs(target() - drawn) > .5)) raf = requestAnimationFrame(() => tick());
+  }
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(() => tick()); }, {passive:true});
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(build, 150); });
+  build();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+  if (location.hash === "#documents") setTimeout(() => document.getElementById("repository").classList.add("flash"), 600);
+})();
+</script>
+
+</body>
+</html>
