@@ -289,7 +289,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:v
       <li><a href="#problem" data-sec="problem">Problem</a></li>
       <li><a href="#documents" data-sec="documents" data-focus="repository">Repository</a></li>
       <li><a href="#documents" data-sec="documents" data-focus="conops">ConOps</a></li>
-      <li><a href="#updates" data-sec="updates">Blog</a></li>
+      <li><a href="#updates" data-sec="updates">Updates</a></li>
       <li><a href="#team" data-sec="team">Team</a></li>
     </ul>
   </div>
@@ -354,17 +354,17 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:v
     <div class="content">
       <p class="eyebrow">The problem</p>
       <h2>A sudden global cooling would leave the world <em>short of protein.</em></h2>
-      <div class="ph"><img src="Canola field.jpeg" alt="Canola field in bloom"></div>
+      <div class="ph" role="img" aria-label="Photo placeholder"><span>Photo · canola meal or field · 16:9</span></div>
       <ul class="facts">
         <li><h3>The shock</h3><p>A nuclear winter, a large volcanic eruption or an asteroid impact could block sunlight and cool the planet for years. Conventional crop yields would fall sharply, and affordable, nutritious protein would get scarce.</p></li>
-        <li><h3>The overlooked resource</h3><p>Canola meal is what's left after the oil is pressed out of the seed. It's rich in protein but mostly fed to livestock. With the right processing, that protein can be extracted for people to eat.</p></li>
-        <li><h3>The gap</h3><p>Extraction methods already exist. What nobody knows yet is how quickly they could be scaled up when it matters most, and which one is actually worth scaling.</p></li>
+        <li><h3>The overlooked resource</h3><p>Canola meal is what's left after the oil is pressed out of the seed. It's rich in protein but mostly fed to livestock. It could be eaten directly with the right flavour masking, or its protein extracted and turned into food.</p></li>
+        <li><h3>The gap</h3><p>Canola protein is already made at commercial scale. What nobody knows yet is which route gets food to people faster and cheaper when it matters most, and how quickly it could ramp up.</p></li>
       </ul>
       <div class="approach">
         <h3>What we're doing about it</h3>
         <ol class="steps">
           <li><b>Two options</b>Eat canola meal directly with flavour masking (Case 1), or extract its protein using 1–2 methods already used commercially (Case 2).</li>
-          <li><b>Pick one</b>Compare the two on cost per unit of protein and calories, using real industrial examples from Canada and China.</li>
+          <li><b>Pick one</b>Compare the two on cost per unit of protein and calories, backed by real industrial examples from Canada and China.</li>
           <li><b>Model the scale-up</b>Work out the capital cost, how fast production could ramp up, and how many people it could feed.</li>
         </ol>
         <p class="out"><b>Where it ends up:</b> a techno-economic model and scale-up recommendation for ALLFED, with a peer-reviewed journal article as the stretch goal.</p>
@@ -378,7 +378,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:v
     <div class="content">
       <p class="eyebrow">Project documents</p>
       <h2>Everything we've submitted, <em>in one place.</em></h2>
-      <p class="lede">For markers, our project host and anyone following along. Both are kept current before every audit.</p>
+      <p class="lede">Curious how the project actually runs? Everything we've put together lives here, and it's kept up to date as we go.</p>
       <div class="docs">
         <article class="doc" id="repository">
           <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></svg></div>
@@ -386,10 +386,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:v
           <h3>Project repository</h3>
           <p>Our governance record: plans, registers and logs, updated between audits.</p>
           <ul>
-            <li>Project timeline</li>
-            <li>Stakeholder analysis &amp; engagement strategy</li>
-            <li>RACI matrix &amp; team roles</li>
-            <li>Decision, action &amp; feedback logs</li>
+            <li>Project management plan &amp; timeline</li>
+            <li>Research framework</li>
+            <li>Risk register, stakeholder analysis &amp; RACI</li>
+            <li>Decision log &amp; meeting minutes</li>
           </ul>
           <a class="btn btn-primary" data-link="repository" href="#">Open repository <span class="arr">→</span></a>
         </article>
@@ -453,8 +453,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:v
         <h3>Working with</h3>
         <ul>
           <li><b>Dr David Denkenberger</b><span>Project host · ALLFED</span></li>
-          <li><b>Juan Garcia Martinez</b><span>ALLFED contact</span></li>
-          <li><b>Arlene Mendoza</b><span>Academic supervisor · ANU</span></li>
+          <li><b>Juan Garcia Martinez</b><span>Technical advisor · ALLFED</span></li>
+          <li><b>Arlene Mendoza</b><span>Tutor · ANU</span></li>
         </ul>
       </div>
     </div>
@@ -482,38 +482,41 @@ const LINKS = {
 // Newest first. Add a new object at the top each week.
 const UPDATES = [
   {
-    date: "2026-09-21", tag: "Governance",
-    title: "Closing out the PA1 feedback",
-    body: ["We're working through the tutor's PA1 comments before the next audit."],
+    date: "2026-09-15", tag: "Research",
+    title: "Research plan locked in, ConOps V2 done",
+    body: ["Our technical advisor at ALLFED reviewed the research framework on 14 Sep, and it's changed how we're tackling the problem."],
     list: [
-      "ALLFED now has its own row in the stakeholder register, separate from the project host",
-      "Course Convenor added as a stakeholder",
-      "Documenting how stakeholders are identified, who owns the list and how often it's reviewed",
-      "Tightening up team structure, schedule and risk register"
+      "Two cases now: eating canola meal directly with flavour masking (Case 1) vs extracting the protein (Case 2)",
+      "Case 2 narrowed from eight extraction methods down to the 1–2 already used commercially",
+      "We compare Case 1 against Case 2 as a whole, then model how fast the winner could scale",
+      "Scalability will be backed by real industrial examples in Canada and China",
+      "ConOps V2 finished, covering all the PA1 feedback, and sent for sign-off"
     ],
-    next: "Decision-making framework and an updated feedback log template."
+    next: "Gather production and cost data, and start building the evidence for Case 1 and Case 2 ahead of PA2."
   },
   {
-    date: "2026-09-07", tag: "Milestone",
-    title: "PA1 governance pack submitted",
-    body: ["First audit done. The full governance set is now in the repository."],
+    date: "2026-09-10", tag: "Governance",
+    title: "Break week 1: feedback and framework",
+    body: ["Spent the first week of the break working through PA1 feedback and getting the research direction clear."],
     list: [
-      "Concept of Operations (two iterations)",
-      "Project timeline",
-      "Stakeholder analysis, engagement strategy and power/interest matrix",
-      "RACI matrix, team structure and roles, tutor feedback log"
+      "Met our project host and ALLFED's technical advisor to walk through the research framework",
+      "Decision-making framework drafted, with a working decision log",
+      "Meeting minutes template reworked so decisions are easier to trace",
+      "Research tasks split up across the team"
     ],
-    next: "Act on the audit feedback and start the extraction-method literature review."
+    next: "Finish the PA1 feedback, update the ConOps and PMP, and start research."
   },
   {
-    date: "2026-08-10", tag: "Kick-off",
-    title: "Scope agreed with ALLFED",
-    body: ["We met our host and locked in what this project is and isn't. We compare existing canola meal protein-extraction methods, pick the most viable on yield, cost and scalability, then model how fast it could scale in a catastrophe."],
+    date: "2026-08-28", tag: "Milestone",
+    title: "PA1 complete",
+    body: ["First audit done. The groundwork for the project is in place."],
     list: [
-      "Out of scope: wet-lab trials, building equipment, climate relocation modelling",
-      "Long-term goal: a peer-reviewed journal article with ALLFED"
+      "Repository and landing page set up",
+      "ConOps and project management plan signed off",
+      "Governance templates ready: decision log, risk register, stakeholder analysis, RACI",
+      "Initial literature review underway"
     ],
-    next: "Draft the ConOps and set up the project repository."
+    next: "Act on the audit feedback and firm up the research framework with ALLFED."
   }
 ];
 
